@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:33:46 by karai             #+#    #+#             */
-/*   Updated: 2024/11/19 21:52:02 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/20 22:27:18 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void				list_appendleft(t_list *list, int num);
 void				list_rotate_right(t_list *list);
 void				list_rotate_left(t_list *list);
 void				list_remove_left(t_list *list);
+int					list_get_data(t_list *list, int idx);
 
 #endif
