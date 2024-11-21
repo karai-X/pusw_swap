@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:21:57 by karai             #+#    #+#             */
-/*   Updated: 2024/11/20 21:56:36 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/21 20:16:52 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ int	*ft_comp_cord(int *array, int length)
 	int	i;
 	int	j;
 
-	ft_sort_upper(array, length);
-	if (ft_is_duplicate(array, length))
-		return (NULL);
 	temp_array = (int *)malloc(sizeof(int) * length);
 	if (temp_array == NULL)
 		return (NULL);
 	i = -1;
 	while (++i < length)
 		temp_array[i] = array[i];
+	ft_sort_upper(temp_array, length);
+	if (ft_is_duplicate(temp_array, length))
+		return (NULL);
 	i = 0;
 	while (i < length)
 	{

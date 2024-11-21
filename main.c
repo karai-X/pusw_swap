@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:12:26 by karai             #+#    #+#             */
-/*   Updated: 2024/11/20 22:29:21 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/21 23:39:05 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	main(int argc, char *argv[])
 {
 	int		i;
 	int		*array;
-	t_list	list[0];
+	t_list	alist[1];
+	t_list	blist[1];
+	t_list	ans_list[1];
 
 	array = malloc(sizeof(int) * (argc - 1));
 	i = 1;
@@ -32,26 +34,39 @@ int	main(int argc, char *argv[])
 		free(array);
 		return (1);
 	}
-	printf("\nlist zone\n");
-	list->head = NULL;
+	alist->head = NULL;
+	alist->idx = 0;
+	alist->len = 0;
+	blist->head = NULL;
+	blist->idx = 0;
+	blist->len = 0;
 	i = 0;
 	while (i < argc - 1)
 	{
-		list_append(list, array[i]);
+		list_append(alist, array[i]);
 		i += 1;
 	}
-	list_print(list);
-	printf("get_data: %d\n", list_get_data(list, 8));
-	// printf("\nlist zone\n");
-	// list_appendleft(list, 123);
-	// list_append(list, 999);
-	// list_rotate_left(list);
-	// list_print(list);
-	// list_remove_left(list);
-	// printf("%p %p %p\n", list->head, list->head->next, list->head->prev);
-	// list_remove_left(list);
-	// printf("%p\n", list->head);
-	// printf("\nlist zone\n");
-	// list_print(list);
-	// free(array);
+	list_print(alist);
+	printf("\n");
+	printf("argc - 1: %d\n", argc - 1);
+	if ((argc - 1) < 4)
+	{
+		sort_list_u3(alist, ans_list);
+		list_print(alist);
+		printf("\n");
+		list_print(ans_list);
+	}
+	printf("len: %d\n", alist->len);
+	if ((argc - 1) < 7)
+	{
+		divide_list(alist, blist, ans_list, 1);
+		sort_list_u3(alist, ans_list);
+		sort_list_u3(blist, ans_list);
+	}
+	printf("alist\n");
+	list_print(alist);
+	printf("blist\n");
+	list_print(blist);
+	printf("ans_list\n");
+	list_print(ans_list);
 }

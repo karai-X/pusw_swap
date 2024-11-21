@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:03:34 by karai             #+#    #+#             */
-/*   Updated: 2024/11/20 22:27:38 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/21 23:38:38 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	list_append(t_list *list, int num)
 		new_node->prev = tmp_ptr;
 		tmp_ptr->next = new_node;
 	}
+	list->len += 1;
 }
 
 void	list_print(t_list *list)
@@ -96,10 +97,11 @@ void	list_remove_left(t_list *list)
 		else
 			list->head = list->head->next;
 		free(tmp_ptr);
+		list->len -= 1;
 	}
 }
 
-int	list_get_data(t_list *list, int idx)
+int	list_gd(t_list *list, int idx)
 {
 	int		i;
 	t_node	*tmp_ptr;
@@ -119,21 +121,44 @@ int	list_get_data(t_list *list, int idx)
 	}
 }
 
-// int	list_search(t_list *list, int search_num)
-// {
-// 	int	i;
+void	list_swap(t_list *list, int idx)
+{
+	int		i;
+	t_node	*tmp_ptr;
+	int		tmp_num;
 
-// 	i = 0;
-// 	if (list_is_empty(list))
-// 		return ;
-// 	else
-// 	{
-// 		if (list)
-// 	}
+	tmp_ptr = list->head;
+	i = 0;
+	while (i != idx)
+	{
+		tmp_ptr = tmp_ptr->next;
+		i += 1;
+	}
+	tmp_num = tmp_ptr->next->data;
+	tmp_ptr->next->data = tmp_ptr->data;
+	tmp_ptr->data = tmp_num;
+}
 
-// }
+int	list_min(t_list *list)
+{
+	int		minimum;
+	int		i;
+	t_node	*tmp_ptr;
 
-// void	list_swap(t_list *list)
-// {
-// 	t_node	*tmp_ptr;
-// }
+	if (list_is_empty(list) == true)
+		return (-1);
+	else
+	{
+		minimum = list_gd(list, 0);
+		i = 0;
+		tmp_ptr = list->head;
+		while (i < list->len)
+		{
+			if (minimum > tmp_ptr->data)
+				minimum = tmp_ptr->data;
+			tmp_ptr = tmp_ptr->next;
+			i += 1;
+		}
+	}
+	return(minimum);
+}
