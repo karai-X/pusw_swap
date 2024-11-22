@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:12:26 by karai             #+#    #+#             */
-/*   Updated: 2024/11/21 23:39:05 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/23 00:11:39 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,16 @@ int	main(int argc, char *argv[])
 		divide_list(alist, blist, ans_list, 1);
 		sort_list_u3(alist, ans_list);
 		sort_list_u3(blist, ans_list);
+		move_bottom_list(blist, alist, ans_list);
+	}
+	if ((argc - 1) >= 7)
+	{
+		divide_list(alist, blist, ans_list, 1);
 	}
 	printf("alist\n");
 	list_print(alist);
 	printf("blist\n");
 	list_print(blist);
-	printf("ans_list\n");
+	printf("ans_list len: %d\n", ans_list->len);
 	list_print(ans_list);
 }

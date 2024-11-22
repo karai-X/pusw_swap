@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 22:12:04 by karai             #+#    #+#             */
-/*   Updated: 2024/11/21 23:37:51 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/23 00:09:29 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	sort_list_u3(t_list *list, t_list *ans_list)
 	int	sn;
 
 	sn = list_min(list);
-	printf("sn: %d\n",sn);
+	printf("sn: %d\n", sn);
 	if (list->len == 1)
 		return ;
 	else if (list->len == 2)
@@ -67,14 +67,15 @@ void	sort_list_u3(t_list *list, t_list *ans_list)
 
 void	divide_list(t_list *alist, t_list *blist, t_list *ans_list, int sn)
 {
-	int	und_remain;
+	int	init_alist_len;
 
-	und_remain = sn + 2;
+	init_alist_len = alist->len;
+	sn = list_min(alist);
 	if (alist->len <= 6)
 	{
 		while (alist->len > 3)
 		{
-			if (list_gd(alist, 0) <= und_remain)
+			if (list_gd(alist, 0) <= sn + 2)
 			{
 				list_rotate_left(alist);
 				list_append(ans_list, RA + alist->idx);
@@ -86,5 +87,34 @@ void	divide_list(t_list *alist, t_list *blist, t_list *ans_list, int sn)
 				list_append(ans_list, PB + alist->idx);
 			}
 		}
+	}
+	else
+	{
+		while (alist->len > init_alist_len / 2)
+		{
+			if (list_gd(alist, 0) < sn + (init_alist_len + 1) / 2)
+			{
+				list_appendleft(blist, list_gd(alist, 0));
+				list_remove_left(alist);
+				list_append(ans_list, PB + alist->idx);
+			}
+			else
+			{
+				list_rotate_left(alist);
+				list_append(ans_list, RA + alist->idx);
+			}
+		}
+	}
+}
+
+void	move_bottom_list(t_list *alist, t_list *blist, t_list *ans_list)
+{
+	while (list_is_empty(alist) == false)
+	{
+		list_appendleft(blist, list_gd(alist, 0));
+		list_rotate_left(blist);
+		list_remove_left(alist);
+		list_append(ans_list, PB + alist->idx);
+		list_append(ans_list, RA);
 	}
 }
