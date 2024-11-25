@@ -6,13 +6,14 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:33:46 by karai             #+#    #+#             */
-/*   Updated: 2024/11/23 00:09:49 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/25 22:48:51 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BC_LIST_H
 # define BC_LIST_H
 
+# include <limits.h>
 # include <stdbool.h>
 
 typedef struct s_node
@@ -44,5 +45,14 @@ void				divide_list(t_list *alist, t_list *blist, t_list *ans_list,
 int					list_min(t_list *list);
 void				move_bottom_list(t_list *alist, t_list *blist,
 						t_list *ans_list);
+void				ft_dfs(t_list *blist, t_list *alist, t_list *ans_list,
+						t_list *block_list);
+void				list_move(t_list *alist, t_list *blist, t_list *ans_list,
+						int move_num);
+void				divide_list_init(t_list *alist, t_list *blist,
+						t_list *ans_list, int sn);
+void				sort_list_u3_to_bottom(t_list *alist,
+						t_list *blist, t_list *ans_list, int num);
+int					list_min_limit(t_list *list, int num);
 
 #endif

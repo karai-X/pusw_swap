@@ -6,13 +6,14 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:33:10 by karai             #+#    #+#             */
-/*   Updated: 2024/11/21 23:08:55 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/25 22:48:35 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include <limits.h>
 # include <stdbool.h>
 # include <stdio.h>
 

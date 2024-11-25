@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:03:34 by karai             #+#    #+#             */
-/*   Updated: 2024/11/21 23:38:38 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/25 22:43:50 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,5 @@ int	list_min(t_list *list)
 			i += 1;
 		}
 	}
-	return(minimum);
+	return (minimum);
 }

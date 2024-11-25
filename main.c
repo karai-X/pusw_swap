@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:12:26 by karai             #+#    #+#             */
-/*   Updated: 2024/11/23 00:11:39 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/25 23:31:09 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char *argv[])
 	t_list	alist[1];
 	t_list	blist[1];
 	t_list	ans_list[1];
+	t_list	block_list[1];
 
 	array = malloc(sizeof(int) * (argc - 1));
 	i = 1;
@@ -46,9 +47,6 @@ int	main(int argc, char *argv[])
 		list_append(alist, array[i]);
 		i += 1;
 	}
-	list_print(alist);
-	printf("\n");
-	printf("argc - 1: %d\n", argc - 1);
 	if ((argc - 1) < 4)
 	{
 		sort_list_u3(alist, ans_list);
@@ -56,22 +54,43 @@ int	main(int argc, char *argv[])
 		printf("\n");
 		list_print(ans_list);
 	}
-	printf("len: %d\n", alist->len);
 	if ((argc - 1) < 7)
 	{
-		divide_list(alist, blist, ans_list, 1);
+		divide_list_init(alist, blist, ans_list, 1);
 		sort_list_u3(alist, ans_list);
 		sort_list_u3(blist, ans_list);
 		move_bottom_list(blist, alist, ans_list);
 	}
 	if ((argc - 1) >= 7)
 	{
-		divide_list(alist, blist, ans_list, 1);
+		argc = argc - 1;
+		divide_list_init(alist, blist, ans_list, 1);
+		list_appendleft(block_list, argc / 2);
+		list_appendleft(block_list, 0);
+		while (list_is_empty(block_list) == false)
+		{
+			// printf("num: %d\n", list_gd(block_list, 0));
+			// if (list_gd(block_list, 0) <= 3)
+			// {
+			// 	printf("dfasg\n");
+			// 	sort_list_u3_to_bottom(alist, blist, ans_list,
+			// 		list_gd(block_list, 0));
+			// 	list_remove_left(block_list);
+			// }
+			// else
+			// {
+				list_move(alist, blist, ans_list, list_gd(block_list, 0));
+				list_remove_left(block_list);
+				ft_dfs(blist, alist, ans_list, block_list);
+				sort_list_u3(blist, ans_list);
+				move_bottom_list(blist, alist, ans_list);
+			// }
+			// printf("alist\n");
+			// list_print(alist);
+		}
 	}
 	printf("alist\n");
 	list_print(alist);
-	printf("blist\n");
-	list_print(blist);
 	printf("ans_list len: %d\n", ans_list->len);
-	list_print(ans_list);
+	// list_print(ans_list);
 }
