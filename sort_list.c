@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 22:12:04 by karai             #+#    #+#             */
-/*   Updated: 2024/11/25 23:29:44 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/26 00:31:44 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,41 +108,41 @@ void	divide_list_init(t_list *alist, t_list *blist, t_list *ans_list, int sn)
 
 void	divide_list(t_list *alist, t_list *blist, t_list *ans_list, int sn)
 {
-	int	init_alist_len;
+	int	init_blist_len;
 
-	init_alist_len = alist->len;
-	sn = list_min(alist);
-	if (alist->len <= 6)
+	init_blist_len = blist->len;
+	sn = list_min(blist);
+	if (blist->len <= 6)
 	{
-		while (alist->len > 3)
+		while (blist->len > 3)
 		{
-			if (list_gd(alist, 0) <= sn + 2)
+			if (list_gd(blist, 0) <= sn + 2)
 			{
-				list_rotate_left(alist);
-				list_append(ans_list, RA + alist->idx);
+				list_rotate_left(blist);
+				list_append(ans_list, RA + blist->idx);
 			}
 			else
 			{
-				list_appendleft(blist, list_gd(alist, 0));
-				list_remove_left(alist);
-				list_append(ans_list, PB + alist->idx);
+				list_appendleft(alist, list_gd(blist, 0));
+				list_remove_left(blist);
+				list_append(ans_list, PA);
 			}
 		}
 	}
 	else
 	{
-		while (alist->len > init_alist_len / 2)
+		while (blist->len > init_blist_len / 2)
 		{
-			if (list_gd(alist, 0) < sn + init_alist_len / 2)
+			if (list_gd(blist, 0) < sn + init_blist_len / 2)
 			{
-				list_rotate_left(alist);
-				list_append(ans_list, RA + alist->idx);
+				list_rotate_left(blist);
+				list_append(ans_list, RA + blist->idx);
 			}
 			else
 			{
-				list_appendleft(blist, list_gd(alist, 0));
-				list_remove_left(alist);
-				list_append(ans_list, PB + alist->idx);
+				list_appendleft(alist, list_gd(blist, 0));
+				list_remove_left(blist);
+				list_append(ans_list, PA);
 			}
 		}
 	}
@@ -160,7 +160,7 @@ void	move_bottom_list(t_list *alist, t_list *blist, t_list *ans_list)
 	}
 }
 
-void	ft_dfs(t_list *blist, t_list *alist, t_list *ans_list,
+void	ft_dfs(t_list *alist, t_list *blist, t_list *ans_list,
 		t_list *block_list)
 {
 	int	temp;
@@ -168,7 +168,7 @@ void	ft_dfs(t_list *blist, t_list *alist, t_list *ans_list,
 	while (blist->len > 3)
 	{
 		temp = blist->len;
-		divide_list(blist, alist, ans_list, 1);
+		divide_list(alist, blist, ans_list, 1);
 		list_appendleft(block_list, temp - blist->len);
 	}
 }

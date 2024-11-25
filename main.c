@@ -6,13 +6,53 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:12:26 by karai             #+#    #+#             */
-/*   Updated: 2024/11/25 23:31:09 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/26 00:54:15 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bc_list.h"
 #include "libft.h"
 #include "push_swap.h"
+
+void print_ans_part(int num)
+{
+	if (num == SA)
+		printf("sa\n");
+	if (num == SB)
+		printf("sb\n");
+	if (num == SS)
+		printf("ss\n");
+	if (num == PB)
+		printf("pb\n");
+	if (num == PA)
+		printf("pa\n");
+	if (num == RA)
+		printf("ra\n");
+	if (num == RB)
+		printf("rb\n");
+	if (num == RR)
+		printf("rr\n");
+	if (num == RRA)
+		printf("rra\n");
+	if (num == RRB)
+		printf("rrb\n");
+	if (num == RRR)
+		printf("rrr\n");
+}
+
+void	print_ans(t_list *ans_list)
+{
+	t_node	*tmp_ptr;
+
+	tmp_ptr = ans_list->head;
+	print_ans_part(tmp_ptr->data);
+	tmp_ptr = tmp_ptr->next;
+	while (tmp_ptr != ans_list->head)
+	{
+		print_ans_part(tmp_ptr->data);
+		tmp_ptr = tmp_ptr->next;
+	}
+}
 
 int	main(int argc, char *argv[])
 {
@@ -39,7 +79,7 @@ int	main(int argc, char *argv[])
 	alist->idx = 0;
 	alist->len = 0;
 	blist->head = NULL;
-	blist->idx = 0;
+	blist->idx = 1;
 	blist->len = 0;
 	i = 0;
 	while (i < argc - 1)
@@ -69,28 +109,24 @@ int	main(int argc, char *argv[])
 		list_appendleft(block_list, 0);
 		while (list_is_empty(block_list) == false)
 		{
-			// printf("num: %d\n", list_gd(block_list, 0));
-			// if (list_gd(block_list, 0) <= 3)
-			// {
-			// 	printf("dfasg\n");
-			// 	sort_list_u3_to_bottom(alist, blist, ans_list,
-			// 		list_gd(block_list, 0));
-			// 	list_remove_left(block_list);
-			// }
-			// else
-			// {
+			if (list_gd(block_list, 0) <= 3 && list_gd(block_list, 0) >= 1)
+			{
+				sort_list_u3_to_bottom(alist, blist, ans_list,
+					list_gd(block_list, 0));
+				list_remove_left(block_list);
+			}
+			else
+			{
 				list_move(alist, blist, ans_list, list_gd(block_list, 0));
 				list_remove_left(block_list);
-				ft_dfs(blist, alist, ans_list, block_list);
+				ft_dfs(alist, blist, ans_list, block_list);
 				sort_list_u3(blist, ans_list);
 				move_bottom_list(blist, alist, ans_list);
-			// }
-			// printf("alist\n");
-			// list_print(alist);
+			}
 		}
 	}
-	printf("alist\n");
-	list_print(alist);
+	// printf("alist\n");
+	// list_print(alist);
+	print_ans(ans_list);
 	printf("ans_list len: %d\n", ans_list->len);
-	// list_print(ans_list);
 }
