@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:33:46 by karai             #+#    #+#             */
-/*   Updated: 2024/11/25 22:48:51 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/26 21:32:01 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_list
 	t_node			*head;
 	int				idx;
 	int				len;
+	int				bottom;
 }					t_list;
 
 bool				list_is_empty(t_list *list);
@@ -40,7 +41,7 @@ int					list_gd(t_list *list, int idx);
 void				list_swap(t_list *list, int idx);
 
 void				sort_list_u3(t_list *list, t_list *ans_list);
-void				divide_list(t_list *alist, t_list *blist, t_list *ans_list,
+int					divide_list(t_list *alist, t_list *blist, t_list *ans_list,
 						int sn);
 int					list_min(t_list *list);
 void				move_bottom_list(t_list *alist, t_list *blist,
@@ -51,8 +52,10 @@ void				list_move(t_list *alist, t_list *blist, t_list *ans_list,
 						int move_num);
 void				divide_list_init(t_list *alist, t_list *blist,
 						t_list *ans_list, int sn);
-void				sort_list_u3_to_bottom(t_list *alist,
-						t_list *blist, t_list *ans_list, int num);
+void				sort_list_u3_to_bottom(t_list *alist, t_list *blist,
+						t_list *ans_list, int num);
 int					list_min_limit(t_list *list, int num);
+void				sort_list_u3_to_other(t_list *alist, t_list *blist,
+						t_list *ans_list);
 
 #endif

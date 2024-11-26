@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:12:26 by karai             #+#    #+#             */
-/*   Updated: 2024/11/26 00:54:15 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/26 22:14:06 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "push_swap.h"
 
-void print_ans_part(int num)
+void	print_ans_part(int num)
 {
 	if (num == SA)
 		printf("sa\n");
@@ -81,6 +81,7 @@ int	main(int argc, char *argv[])
 	blist->head = NULL;
 	blist->idx = 1;
 	blist->len = 0;
+	ans_list->bottom = 0;
 	i = 0;
 	while (i < argc - 1)
 	{
@@ -109,6 +110,7 @@ int	main(int argc, char *argv[])
 		list_appendleft(block_list, 0);
 		while (list_is_empty(block_list) == false)
 		{
+			// printf("%d\n",ans_list->bottom);
 			if (list_gd(block_list, 0) <= 3 && list_gd(block_list, 0) >= 1)
 			{
 				sort_list_u3_to_bottom(alist, blist, ans_list,
@@ -120,8 +122,8 @@ int	main(int argc, char *argv[])
 				list_move(alist, blist, ans_list, list_gd(block_list, 0));
 				list_remove_left(block_list);
 				ft_dfs(alist, blist, ans_list, block_list);
-				sort_list_u3(blist, ans_list);
-				move_bottom_list(blist, alist, ans_list);
+				sort_list_u3_to_other(alist, blist, ans_list);
+				// move_bottom_list(blist, alist, ans_list);
 			}
 		}
 	}
