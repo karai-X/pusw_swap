@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:12:26 by karai             #+#    #+#             */
-/*   Updated: 2024/11/26 22:14:06 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/27 22:54:30 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ int	main(int argc, char *argv[])
 		list_appendleft(block_list, 0);
 		while (list_is_empty(block_list) == false)
 		{
-			// printf("%d\n",ans_list->bottom);
 			if (list_gd(block_list, 0) <= 3 && list_gd(block_list, 0) >= 1)
 			{
 				sort_list_u3_to_bottom(alist, blist, ans_list,
@@ -123,12 +122,16 @@ int	main(int argc, char *argv[])
 				list_remove_left(block_list);
 				ft_dfs(alist, blist, ans_list, block_list);
 				sort_list_u3_to_other(alist, blist, ans_list);
-				// move_bottom_list(blist, alist, ans_list);
 			}
 		}
 	}
-	// printf("alist\n");
-	// list_print(alist);
+	argc = 0;
+	while (argc < 20)
+	{
+		integarate_pb_ra_pa(ans_list);
+		integrate_pb_pa(ans_list);
+		integrate_rb_ra(ans_list);
+		argc += 1;
+	}
 	print_ans(ans_list);
-	printf("ans_list len: %d\n", ans_list->len);
 }

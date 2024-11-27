@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 22:12:04 by karai             #+#    #+#             */
-/*   Updated: 2024/11/26 22:01:49 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/27 23:25:53 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,25 +109,29 @@ void	divide_list_init(t_list *alist, t_list *blist, t_list *ans_list, int sn)
 int	divide_list(t_list *alist, t_list *blist, t_list *ans_list, int sn)
 {
 	int	init_blist_len;
-	int	bottom_cnt;
 	int	block_cnt;
+	int	move_cnt;
 
 	init_blist_len = blist->len;
 	sn = list_min(blist);
-	bottom_cnt = 0;
 	block_cnt = 0;
+	move_cnt = 0;
 	if (blist->len <= 6)
 	{
-		while (blist->len + bottom_cnt > 3)
+		while (init_blist_len - move_cnt > 3)
 		{
+			if (list_gd(blist, 0) > sn + 2)
+				move_cnt += 1;
 			if (list_gd(blist, 0) == (ans_list->bottom + 1))
 			{
+				if (list_last(ans_list) == PB)
+					list_remove_right(ans_list);
+				else
+					list_append(ans_list, PA);
 				list_appendleft(alist, list_gd(blist, 0));
 				list_remove_left(blist);
 				list_rotate_left(alist);
-				list_append(ans_list, PA);
 				list_append(ans_list, RA);
-				bottom_cnt += 1;
 				ans_list->bottom += 1;
 			}
 			else if (list_gd(blist, 0) <= sn + 2)
@@ -137,37 +141,47 @@ int	divide_list(t_list *alist, t_list *blist, t_list *ans_list, int sn)
 			}
 			else
 			{
+				if (list_last(ans_list) == PB)
+					list_remove_right(ans_list);
+				else
+					list_append(ans_list, PA);
 				list_appendleft(alist, list_gd(blist, 0));
 				list_remove_left(blist);
-				list_append(ans_list, PA);
 				block_cnt += 1;
 			}
 		}
 	}
 	else
 	{
-		while (blist->len + bottom_cnt > init_blist_len / 2)
+		while (move_cnt < init_blist_len / 2)
 		{
+			if (list_gd(blist, 0) > sn + (init_blist_len - 1) / 2)
+				move_cnt += 1;
 			if (list_gd(blist, 0) == ans_list->bottom + 1)
 			{
+				if (list_last(ans_list) == PB)
+					list_remove_right(ans_list);
+				else
+					list_append(ans_list, PA);
 				list_appendleft(alist, list_gd(blist, 0));
 				list_remove_left(blist);
 				list_rotate_left(alist);
-				list_append(ans_list, PA);
 				list_append(ans_list, RA);
-				bottom_cnt += 1;
 				ans_list->bottom += 1;
 			}
-			else if (list_gd(blist, 0) < sn + init_blist_len / 2)
+			else if (list_gd(blist, 0) <= sn + (init_blist_len - 1) / 2)
 			{
 				list_rotate_left(blist);
 				list_append(ans_list, RA + blist->idx);
 			}
 			else
 			{
+				if (list_last(ans_list) == PB)
+					list_remove_right(ans_list);
+				else
+					list_append(ans_list, PA);
 				list_appendleft(alist, list_gd(blist, 0));
 				list_remove_left(blist);
-				list_append(ans_list, PA);
 				block_cnt += 1;
 			}
 		}
@@ -209,10 +223,18 @@ void	list_move(t_list *alist, t_list *blist, t_list *ans_list, int move_num)
 	{
 		if (list_gd(alist, 0) == (ans_list->bottom + 1))
 		{
-			// printf("33333\n");
 			list_rotate_left(alist);
 			list_append(ans_list, RA);
 			ans_list->bottom += 1;
+			while (list_gd(blist, 0) == (ans_list->bottom + 1))
+			{
+				list_appendleft(alist, list_gd(blist, 0));
+				list_remove_left(blist);
+				list_append(ans_list, PA);
+				list_rotate_left(alist);
+				list_append(ans_list, RA);
+				ans_list->bottom += 1;
+			}
 		}
 		else
 		{
@@ -348,10 +370,10 @@ void	sort_list_u3_to_bottom(t_list *alist, t_list *blist, t_list *ans_list,
 
 void	sort_list_u3_to_other(t_list *alist, t_list *blist, t_list *ans_list)
 {
-	int alist_top;
+	int	alist_top;
 
 	alist_top = 0;
-	while(blist->len != 0)
+	while (blist->len != 0)
 	{
 		if (list_gd(blist, 0) == ans_list->bottom + 1)
 		{
@@ -361,7 +383,7 @@ void	sort_list_u3_to_other(t_list *alist, t_list *blist, t_list *ans_list)
 			list_append(ans_list, PA);
 			list_append(ans_list, RA);
 			ans_list->bottom += 1;
-			while(alist_top > 0)
+			while (alist_top > 0)
 			{
 				if (list_gd(alist, 0) == ans_list->bottom + 1)
 				{
@@ -371,7 +393,7 @@ void	sort_list_u3_to_other(t_list *alist, t_list *blist, t_list *ans_list)
 					alist_top -= 1;
 				}
 				else
-					break;
+					break ;
 			}
 		}
 		else
@@ -387,53 +409,4 @@ void	sort_list_u3_to_other(t_list *alist, t_list *blist, t_list *ans_list)
 			}
 		}
 	}
-	// if (blist->len == 1)
-	// {
-	// 	list_appendleft(alist, list_gd(blist, 0));
-	// 	list_remove_left(blist);
-	// 	list_rotate_left(alist);
-	// 	list_append(ans_list, PA);
-	// 	list_append(ans_list, RA);
-	// 	ans_list->bottom += 1;
-	// }
-	// else if (blist->len == 2)
-	// {
-	// 	if (list_gd(list, 0) > list_gd(list, 1))
-	// 	{
-	// 		list_append(ans_list, SA + list->idx);
-
-	// 	}
-	// }
-	// else if (list->len == 3)
-	// {
-	// 	if ((list_gd(list, 0) == sn) && (list_gd(list, 1) == sn + 2))
-	// 	{
-	// 		list_append(ans_list, RRA + list->idx);
-	// 		list_rotate_right(list);
-	// 		list_append(ans_list, SA + list->idx);
-	// 		list_swap(list, 0);
-	// 	}
-	// 	else if ((list_gd(list, 0) == sn + 1) && (list_gd(list, 1) == sn))
-	// 	{
-	// 		list_append(ans_list, SA + list->idx);
-	// 		list_swap(list, 0);
-	// 	}
-	// 	else if ((list_gd(list, 0) == sn + 1) && (list_gd(list, 1) == sn + 2))
-	// 	{
-	// 		list_append(ans_list, RRA + list->idx);
-	// 		list_rotate_right(list);
-	// 	}
-	// 	else if ((list_gd(list, 0) == sn + 2) && (list_gd(list, 1) == sn))
-	// 	{
-	// 		list_append(ans_list, RA + list->idx);
-	// 		list_rotate_left(list);
-	// 	}
-	// 	if ((list_gd(list, 0) == sn + 2) && (list_gd(list, 1) == sn + 1))
-	// 	{
-	// 		list_append(ans_list, SA + list->idx);
-	// 		list_swap(list, 0);
-	// 		list_append(ans_list, RRA + list->idx);
-	// 		list_rotate_right(list);
-	// 	}
-	// }
 }

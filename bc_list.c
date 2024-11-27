@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:03:34 by karai             #+#    #+#             */
-/*   Updated: 2024/11/25 22:43:50 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/27 20:43:21 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,25 @@ void	list_remove_left(t_list *list)
 	}
 }
 
+void	list_remove_right(t_list *list)
+{
+	t_node	*tmp_ptr;
+
+	if (list_is_empty(list) == false)
+	{
+		if (list->head == list->head->next)
+			list->head = NULL;
+		else
+		{
+			tmp_ptr = list->head->prev;
+			tmp_ptr->prev->next = tmp_ptr->next;
+			tmp_ptr->next->prev = tmp_ptr->prev;
+		}
+		free(tmp_ptr);
+		list->len -= 1;
+	}
+}
+
 int	list_gd(t_list *list, int idx)
 {
 	int		i;
@@ -161,4 +180,15 @@ int	list_min(t_list *list)
 		}
 	}
 	return (minimum);
+}
+
+int	list_last(t_list *list)
+{
+	int		i;
+	t_node	*tmp_ptr;
+
+	if (list_is_empty(list))
+		return (-1);
+	else
+		return (list->head->prev->data);
 }

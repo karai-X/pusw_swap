@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:33:46 by karai             #+#    #+#             */
-/*   Updated: 2024/11/26 21:32:01 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/27 22:01:51 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void				list_rotate_left(t_list *list);
 void				list_remove_left(t_list *list);
 int					list_gd(t_list *list, int idx);
 void				list_swap(t_list *list, int idx);
+int					list_last(t_list *list);
+void				list_remove_right(t_list *list);
 
 void				sort_list_u3(t_list *list, t_list *ans_list);
 int					divide_list(t_list *alist, t_list *blist, t_list *ans_list,
@@ -57,5 +59,9 @@ void				sort_list_u3_to_bottom(t_list *alist, t_list *blist,
 int					list_min_limit(t_list *list, int num);
 void				sort_list_u3_to_other(t_list *alist, t_list *blist,
 						t_list *ans_list);
+
+void				integarate_pb_ra_pa(t_list *list);
+void				integrate_pb_pa(t_list *list);
+void				integrate_rb_ra(t_list *list);
 
 #endif
