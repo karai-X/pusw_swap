@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:12:26 by karai             #+#    #+#             */
-/*   Updated: 2024/11/27 22:54:30 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/28 01:55:13 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,7 @@ int	main(int argc, char *argv[])
 		i += 1;
 	}
 	if ((argc - 1) < 4)
-	{
 		sort_list_u3(alist, ans_list);
-		list_print(alist);
-		printf("\n");
-		list_print(ans_list);
-	}
 	if ((argc - 1) < 7)
 	{
 		divide_list_init(alist, blist, ans_list, 1);
@@ -126,10 +121,11 @@ int	main(int argc, char *argv[])
 		}
 	}
 	argc = 0;
-	while (argc < 20)
+	integrate_sb_pa_ra_pa_ra(ans_list);
+	while (argc < 5)
 	{
-		integarate_pb_ra_pa(ans_list);
 		integrate_pb_pa(ans_list);
+		integarate_pb_ra_pa(ans_list);
 		integrate_rb_ra(ans_list);
 		argc += 1;
 	}

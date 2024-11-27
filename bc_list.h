@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:33:46 by karai             #+#    #+#             */
-/*   Updated: 2024/11/27 22:01:51 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/28 01:22:53 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ void				sort_list_u3_to_other(t_list *alist, t_list *blist,
 void				integarate_pb_ra_pa(t_list *list);
 void				integrate_pb_pa(t_list *list);
 void				integrate_rb_ra(t_list *list);
+void				integrate_sb_pa_ra_pa_ra(t_list *list);
 
 #endif
