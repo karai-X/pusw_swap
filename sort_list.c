@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 22:12:04 by karai             #+#    #+#             */
-/*   Updated: 2024/11/28 00:18:12 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/28 00:34:23 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,12 @@ int	divide_list(t_list *alist, t_list *blist, t_list *ans_list, int sn)
 			sn = sn + init_blist_len - 6;
 		while (init_blist_len - move_cnt > 3 && move_cnt < 3)
 		{
+			if (list_gd(blist, 0) == ans_list->bottom + 2 && list_gd(blist,
+					1) == ans_list->bottom + 1)
+			{
+				list_swap(blist, 0);
+				list_append(ans_list, SB);
+			}
 			if (list_gd(blist, 0) > sn + 2)
 				move_cnt += 1;
 			if (list_gd(blist, 0) == (ans_list->bottom + 1))

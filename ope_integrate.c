@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:00:01 by karai             #+#    #+#             */
-/*   Updated: 2024/11/27 22:55:03 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/28 01:06:56 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	integarate_pb_ra_pa(t_list *list)
 		tmp_ptr = list->head->next;
 		while (tmp_ptr != list->head)
 		{
-			if (cnt == 0 && tmp_ptr->data == PB)
+			if (tmp_ptr->data == PB)
 				cnt = 1;
 			else if (cnt == 1 && tmp_ptr->data == RA)
 				cnt = 2;
