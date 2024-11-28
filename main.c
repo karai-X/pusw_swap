@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:12:26 by karai             #+#    #+#             */
-/*   Updated: 2024/11/28 01:55:13 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/28 19:53:36 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,16 @@ int	main(int argc, char *argv[])
 	}
 	argc = 0;
 	integrate_sb_pa_ra_pa_ra(ans_list);
-	while (argc < 5)
+	while (argc < 15)
 	{
 		integrate_pb_pa(ans_list);
 		integarate_pb_ra_pa(ans_list);
 		integrate_rb_ra(ans_list);
+		if (argc > 2)
+		{
+			integarate_pb_pb_rb_pa(ans_list);
+			integarate_pa_pa_ra_pb(ans_list);
+		}
 		argc += 1;
 	}
 	print_ans(ans_list);

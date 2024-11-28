@@ -1,18 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ope_integrate.c                                    :+:      :+:    :+:   */
+/*   ope_integrate1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:00:01 by karai             #+#    #+#             */
-/*   Updated: 2024/11/28 01:30:21 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/28 20:26:45 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bc_list.h"
 #include "libft.h"
 #include "push_swap.h"
+
+void	ft_integrate(t_list *ans_list)
+{
+	int	i;
+
+	i = 0;
+	integrate_sb_pa_ra_pa_ra(ans_list);
+	while (i < 6)
+	{
+		integrate_pb_pa(ans_list);
+		integarate_pb_ra_pa(ans_list);
+		integrate_rb_ra(ans_list);
+		if (i > 2)
+		{
+			integarate_pb_pb_rb_pa(ans_list);
+			integarate_pa_pa_ra_pb(ans_list);
+		}
+		i += 1;
+	}
+}
 
 void	integarate_pb_ra_pa(t_list *list)
 {
@@ -139,6 +159,86 @@ void	integrate_sb_pa_ra_pa_ra(t_list *list)
 				free(delete_node);
 				list->len -= 1;
 			}
+			tmp_ptr = tmp_ptr->next;
+		}
+	}
+}
+
+void	integarate_pb_pb_rb_pa(t_list *list)
+{
+	t_node	*tmp_ptr;
+	t_node	*delete_node;
+	int		cnt;
+
+	cnt = 0;
+	if (list_is_empty(list) == true)
+		return ;
+	else
+	{
+		tmp_ptr = list->head->next;
+		while (tmp_ptr != list->head)
+		{
+			if ((cnt == 1 || cnt == 2) && tmp_ptr->data == PB)
+				cnt = 2;
+			else if (tmp_ptr->data == PB)
+				cnt = 1;
+			else if (cnt == 2 && tmp_ptr->data == RB)
+				cnt = 3;
+			else if (cnt == 3 && tmp_ptr->data == PA)
+			{
+				cnt = 0;
+				tmp_ptr->prev->prev->prev->data = SA;
+				tmp_ptr->prev->prev->data = PB;
+				tmp_ptr->prev->data = RB;
+				tmp_ptr->prev->next = tmp_ptr->next;
+				tmp_ptr->next->prev = tmp_ptr->prev;
+				delete_node = tmp_ptr;
+				tmp_ptr = tmp_ptr->prev;
+				free(delete_node);
+				list->len -= 1;
+			}
+			else
+				cnt = 0;
+			tmp_ptr = tmp_ptr->next;
+		}
+	}
+}
+
+void	integarate_pa_pa_ra_pb(t_list *list)
+{
+	t_node	*tmp_ptr;
+	t_node	*delete_node;
+	int		cnt;
+
+	cnt = 0;
+	if (list_is_empty(list) == true)
+		return ;
+	else
+	{
+		tmp_ptr = list->head->next;
+		while (tmp_ptr != list->head)
+		{
+			if ((cnt == 1 || cnt == 2) && tmp_ptr->data == PA)
+				cnt = 2;
+			else if (tmp_ptr->data == PA)
+				cnt = 1;
+			else if (cnt == 2 && tmp_ptr->data == RA)
+				cnt = 3;
+			else if (cnt == 3 && tmp_ptr->data == PB)
+			{
+				cnt = 0;
+				tmp_ptr->prev->prev->prev->data = SB;
+				tmp_ptr->prev->prev->data = PA;
+				tmp_ptr->prev->data = RA;
+				tmp_ptr->prev->next = tmp_ptr->next;
+				tmp_ptr->next->prev = tmp_ptr->prev;
+				delete_node = tmp_ptr;
+				tmp_ptr = tmp_ptr->prev;
+				free(delete_node);
+				list->len -= 1;
+			}
+			else
+				cnt = 0;
 			tmp_ptr = tmp_ptr->next;
 		}
 	}
