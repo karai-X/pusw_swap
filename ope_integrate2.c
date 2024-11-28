@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:34:45 by karai             #+#    #+#             */
-/*   Updated: 2024/11/28 20:44:30 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/29 00:30:37 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	integrate_sb_pa_ra_pa_ra(t_list *list)
 	t_node	*tmp_ptr;
 	int		i;
 
-	if (list_is_empty(list) == true || list->len <= 50)
+	if (list_is_empty(list) == true || list->len <= 100)
 		return ;
 	else
 	{

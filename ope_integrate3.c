@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:44:51 by karai             #+#    #+#             */
-/*   Updated: 2024/11/28 20:48:06 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/29 00:47:32 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,34 @@ void	integarate_pa_pa_ra_pb(t_list *list)
 		while (tmp_ptr != list->head)
 		{
 			integarate_pa_pa_ra_pb_part(tmp_ptr, &cnt, list);
+			tmp_ptr = tmp_ptr->next;
+		}
+	}
+}
+
+void	integrate_rb_ra(t_list *list)
+{
+	t_node	*tmp_ptr;
+	t_node	*delete_node;
+
+	if (list_is_empty(list) == true || list->len <= 3)
+		return ;
+	else
+	{
+		tmp_ptr = list->head->next->next;
+		while (tmp_ptr != list->head)
+		{
+			if ((tmp_ptr->prev->data == RA && tmp_ptr->data == RB)
+				|| (tmp_ptr->prev->data == RB && tmp_ptr->data == RA))
+			{
+				delete_node = tmp_ptr;
+				tmp_ptr->prev->next = tmp_ptr->next;
+				tmp_ptr->next->prev = tmp_ptr->prev;
+				tmp_ptr->prev->data = RR;
+				tmp_ptr = tmp_ptr->prev;
+				free(delete_node);
+				list->len -= 1;
+			}
 			tmp_ptr = tmp_ptr->next;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:12:26 by karai             #+#    #+#             */
-/*   Updated: 2024/11/28 22:10:10 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/29 00:48:44 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,39 +68,44 @@ int	main(int argc, char *argv[])
 	list_initialize(alist, blist, ans_list);
 	if (list_initial_make(alist, array, argc) == NULL)
 		return (1);
-	if ((argc - 1) < 4)
-		sort_list_u3(alist, ans_list);
-	if ((argc - 1) < 7)
+	if (ft_solve(alist, blist, ans_list, block_list) == NULL)
 	{
-		divide_list_init(alist, blist, ans_list, 1);
-		sort_list_u3(alist, ans_list);
-		sort_list_u3(blist, ans_list);
-		move_bottom_list(blist, alist, ans_list);
-	}
-	if ((argc - 1) >= 7)
-	{
-		argc = argc - 1;
-		divide_list_init(alist, blist, ans_list, 1);
-		list_appendleft(block_list, argc / 2);
-		list_appendleft(block_list, 0);
-		while (list_is_empty(block_list) == false)
-		{
-			if (list_gd(block_list, 0) <= 3 && list_gd(block_list, 0) >= 1)
-			{
-				sort_list_u3_to_bottom(alist, blist, ans_list,
-					list_gd(block_list, 0));
-				list_remove_left(block_list);
-			}
-			else
-			{
-				list_move(alist, blist, ans_list, list_gd(block_list, 0));
-				list_remove_left(block_list);
-				ft_dfs(alist, blist, ans_list, block_list);
-				sort_list_u3_to_other(alist, blist, ans_list);
-			}
-		}
+		free(array);
+		return (1);
 	}
 	ft_integrate(ans_list);
 	print_ans(ans_list);
 	// free
+	// if ((argc - 1) < 4)
+	// 	sort_list_u3(alist, ans_list);
+	// if ((argc - 1) < 7)
+	// {
+	// 	divide_list_init(alist, blist, ans_list, 1);
+	// 	sort_list_u3(alist, ans_list);
+	// 	sort_list_u3(blist, ans_list);
+	// 	move_bottom_list(blist, alist, ans_list);
+	// }
+	// if ((argc - 1) >= 7)
+	// {
+	// 	argc = argc - 1;
+	// 	divide_list_init(alist, blist, ans_list, 1);
+	// 	list_appendleft(block_list, argc / 2);
+	// 	list_appendleft(block_list, 0);
+	// 	while (list_is_empty(block_list) == false)
+	// 	{
+	// 		if (list_gd(block_list, 0) <= 3 && list_gd(block_list, 0) >= 1)
+	// 		{
+	// 			sort_list_u3_to_bottom(alist, blist, ans_list,
+	// 				list_gd(block_list, 0));
+	// 			list_remove_left(block_list);
+	// 		}
+	// 		else
+	// 		{
+	// 			list_move(alist, blist, ans_list, list_gd(block_list, 0));
+	// 			list_remove_left(block_list);
+	// 			ft_dfs(alist, blist, ans_list, block_list);
+	// 			sort_list_u3_to_other(alist, blist, ans_list);
+	// 		}
+	// 	}
+	// }
 }

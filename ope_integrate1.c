@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:00:01 by karai             #+#    #+#             */
-/*   Updated: 2024/11/28 20:35:15 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/29 00:47:36 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,22 @@ void	integarate_pb_ra_pa(t_list *list)
 	}
 }
 
+void	integrate_pb_pa_part(t_list *list, t_node *tmp_ptr)
+{
+	t_node	*delete_node1;
+	t_node	*delete_node2;
+
+	delete_node1 = tmp_ptr->prev;
+	delete_node2 = tmp_ptr;
+	tmp_ptr->prev->prev->next = tmp_ptr->next;
+	tmp_ptr->next->prev = tmp_ptr->prev->prev;
+	if (tmp_ptr->prev == list->head)
+		list->head = tmp_ptr->next;
+	free(delete_node1);
+	free(delete_node2);
+	list->len -= 2;
+}
+
 void	integrate_pb_pa(t_list *list)
 {
 	t_node	*tmp_ptr;
@@ -93,44 +109,9 @@ void	integrate_pb_pa(t_list *list)
 			if ((tmp_ptr->prev->data == PB && tmp_ptr->data == PA)
 				|| (tmp_ptr->prev->data == PA && tmp_ptr->data == PB))
 			{
-				delete_node1 = tmp_ptr->prev;
-				delete_node2 = tmp_ptr;
-				tmp_ptr->prev->prev->next = tmp_ptr->next;
-				tmp_ptr->next->prev = tmp_ptr->prev->prev;
-				free(delete_node1);
-				free(delete_node2);
-				list->len -= 2;
+				integrate_pb_pa_part(list, tmp_ptr);
 			}
 			tmp_ptr = tmp_ptr->next;
 		}
 	}
 }
-
-void	integrate_rb_ra(t_list *list)
-{
-	t_node	*tmp_ptr;
-	t_node	*delete_node;
-
-	if (list_is_empty(list) == true || list->len <= 3)
-		return ;
-	else
-	{
-		tmp_ptr = list->head->next->next;
-		while (tmp_ptr != list->head)
-		{
-			if ((tmp_ptr->prev->data == RA && tmp_ptr->data == RB)
-				|| (tmp_ptr->prev->data == RB && tmp_ptr->data == RA))
-			{
-				delete_node = tmp_ptr;
-				tmp_ptr->prev->next = tmp_ptr->next;
-				tmp_ptr->next->prev = tmp_ptr->prev;
-				tmp_ptr->prev->data = RR;
-				tmp_ptr = tmp_ptr->prev;
-				free(delete_node);
-				list->len -= 1;
-			}
-			tmp_ptr = tmp_ptr->next;
-		}
-	}
-}
-
