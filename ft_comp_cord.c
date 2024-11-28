@@ -6,10 +6,11 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:21:57 by karai             #+#    #+#             */
-/*   Updated: 2024/11/21 20:16:52 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/28 21:55:38 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "bc_list.h"
 #include "libft.h"
 #include "push_swap.h"
 
@@ -79,5 +80,27 @@ int	*ft_comp_cord(int *array, int length)
 		array[i++] = j;
 	}
 	free(temp_array);
+	return (array);
+}
+
+int	*ft_comp_cord_main(int argc, char *argv[])
+{
+	int	i;
+	int	*array;
+
+	array = malloc(sizeof(int) * (argc - 1));
+	if (array == NULL)
+		return (NULL);
+	i = 1;
+	while (i < argc)
+	{
+		array[i - 1] = ft_atoi(argv[i]);
+		i += 1;
+	}
+	if (ft_comp_cord(array, argc - 1) == NULL)
+	{
+		free(array);
+		return (NULL);
+	}
 	return (array);
 }

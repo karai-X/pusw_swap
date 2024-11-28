@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:33:10 by karai             #+#    #+#             */
-/*   Updated: 2024/11/25 22:48:35 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/28 21:29:15 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define RRB 10
 # define RRR 11
 
+int		*ft_comp_cord_main(int argc, char *argv[]);
 void	ft_sort_upper(int *array, int length);
 int		*ft_comp_cord(int *array, int length);
 bool	ft_is_duplicate(int *array, int length);

@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:33:46 by karai             #+#    #+#             */
-/*   Updated: 2024/11/28 20:27:03 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/28 22:11:29 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ typedef struct s_list
 }					t_list;
 
 bool				list_is_empty(t_list *list);
-void				list_append(t_list *list, int num);
+t_list				*list_append(t_list *list, int num);
 void				list_print(t_list *list);
-void				list_appendleft(t_list *list, int num);
+t_list				*list_appendleft(t_list *list, int num);
 void				list_rotate_right(t_list *list);
 void				list_rotate_left(t_list *list);
 void				list_remove_left(t_list *list);
@@ -59,13 +59,22 @@ void				sort_list_u3_to_bottom(t_list *alist, t_list *blist,
 int					list_min_limit(t_list *list, int num);
 void				sort_list_u3_to_other(t_list *alist, t_list *blist,
 						t_list *ans_list);
+void				list_initialize(t_list *alist, t_list *blist,
+						t_list *ans_list);
+t_list				*list_initial_make(t_list *alist, int *array, int argc);
 
-void				integarate_pb_ra_pa(t_list *list);
 void				integrate_pb_pa(t_list *list);
 void				integrate_rb_ra(t_list *list);
-void				integrate_sb_pa_ra_pa_ra(t_list *list);
-void				integarate_pb_pb_rb_pa(t_list *list);
-void				integarate_pa_pa_ra_pb(t_list *list);
 void				ft_integrate(t_list *ans_list);
+void				integarate_pb_ra_pa_part(t_node *tmp_ptr, int *cnt);
+void				integarate_pb_ra_pa(t_list *list);
+void				integrate_sb_pa_ra_pa_ra_part(t_node *tmp_ptr);
+void				integrate_sb_pa_ra_pa_ra(t_list *list);
+void				integarate_pb_pb_rb_pa_part(t_node *tmp_ptr, int *cnt,
+						t_list *ans_list);
+void				integarate_pb_pb_rb_pa(t_list *list);
+void				integarate_pa_pa_ra_pb_part(t_node *tmp_ptr, int *cnt,
+						t_list *ans_list);
+void				integarate_pa_pa_ra_pb(t_list *list);
 
 #endif

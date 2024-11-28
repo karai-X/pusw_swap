@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:12:26 by karai             #+#    #+#             */
-/*   Updated: 2024/11/28 19:53:36 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/28 22:10:10 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,38 +56,18 @@ void	print_ans(t_list *ans_list)
 
 int	main(int argc, char *argv[])
 {
-	int		i;
 	int		*array;
 	t_list	alist[1];
 	t_list	blist[1];
 	t_list	ans_list[1];
 	t_list	block_list[1];
 
-	array = malloc(sizeof(int) * (argc - 1));
-	i = 1;
-	while (i < argc)
-	{
-		array[i - 1] = ft_atoi(argv[i]);
-		i += 1;
-	}
-	if (ft_comp_cord(array, argc - 1) == NULL)
-	{
-		free(array);
+	array = ft_comp_cord_main(argc, argv);
+	if (array == NULL)
 		return (1);
-	}
-	alist->head = NULL;
-	alist->idx = 0;
-	alist->len = 0;
-	blist->head = NULL;
-	blist->idx = 1;
-	blist->len = 0;
-	ans_list->bottom = 0;
-	i = 0;
-	while (i < argc - 1)
-	{
-		list_append(alist, array[i]);
-		i += 1;
-	}
+	list_initialize(alist, blist, ans_list);
+	if (list_initial_make(alist, array, argc) == NULL)
+		return (1);
 	if ((argc - 1) < 4)
 		sort_list_u3(alist, ans_list);
 	if ((argc - 1) < 7)
@@ -120,19 +100,7 @@ int	main(int argc, char *argv[])
 			}
 		}
 	}
-	argc = 0;
-	integrate_sb_pa_ra_pa_ra(ans_list);
-	while (argc < 15)
-	{
-		integrate_pb_pa(ans_list);
-		integarate_pb_ra_pa(ans_list);
-		integrate_rb_ra(ans_list);
-		if (argc > 2)
-		{
-			integarate_pb_pb_rb_pa(ans_list);
-			integarate_pa_pa_ra_pb(ans_list);
-		}
-		argc += 1;
-	}
+	ft_integrate(ans_list);
 	print_ans(ans_list);
+	// free
 }
