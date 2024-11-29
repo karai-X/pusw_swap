@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:33:46 by karai             #+#    #+#             */
-/*   Updated: 2024/11/29 00:57:39 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/29 22:30:47 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,42 @@ void				list_swap(t_list *list, int idx);
 int					list_last(t_list *list);
 void				list_remove_right(t_list *list);
 
-void				sort_list_u3_part(t_list *list, t_list *ans_list, int sn);
-void				sort_list_u3(t_list *list, t_list *ans_list);
-int					divide_list(t_list *alist, t_list *blist, t_list *ans_list,
-						int sn);
+t_list				*list_rotate_right_ans(t_list *list, t_list *ans_list);
+t_list				*list_swap_ans(t_list *list, t_list *ans_list);
+t_list				*list_rotate_left_ans(t_list *list, t_list *ans_list);
+
+t_list				*sort_list_u3_part(t_list *list, t_list *ans_list, int sn);
+t_list				*sort_list_u3(t_list *list, t_list *ans_list);
+
+t_list				*divide_list(t_list *alist, t_list *blist, t_list *ans_list,
+						int *block_cnt);
+
 int					list_min(t_list *list);
-void				move_bottom_list(t_list *alist, t_list *blist,
+t_list				*move_bottom_list(t_list *alist, t_list *blist,
 						t_list *ans_list);
 void				ft_dfs(t_list *blist, t_list *alist, t_list *ans_list,
 						t_list *block_list);
 void				list_move(t_list *alist, t_list *blist, t_list *ans_list,
 						int move_num);
-void				divide_list_init(t_list *alist, t_list *blist,
+
+t_list				*divide_list_init(t_list *alist, t_list *blist,
+						t_list *ans_list);
+t_list				*divide_list_init_part1(t_list *alist, t_list *blist,
 						t_list *ans_list, int sn);
-void				sort_list_u3_to_bottom(t_list *alist, t_list *blist,
+t_list				*divide_list_init_part2(t_list *alist, t_list *blist,
+						t_list *ans_list, int sn);
+
+t_list				*sort_list_u3_to_bottom(t_list *alist, t_list *blist,
 						t_list *ans_list, int num);
+t_list				*sort_list_u3_to_bottom_part1(t_list *alist,
+						t_list *ans_list);
+t_list				*sort_list_u3_to_bottom_part2(t_list *alist, t_list *blist,
+						t_list *ans_list);
+t_list				*sort_list_u3_to_bottom_part3(t_list *alist,
+						t_list *ans_list);
+t_list				*sort_list_u3_to_bottom_part4(t_list *alist,
+						t_list *ans_list);
+
 int					list_min_limit(t_list *list, int num);
 void				sort_list_u3_to_other(t_list *alist, t_list *blist,
 						t_list *ans_list);
