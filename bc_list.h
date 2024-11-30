@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:33:46 by karai             #+#    #+#             */
-/*   Updated: 2024/11/30 10:21:01 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/30 10:39:52 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_list				*divide_list(t_list *alist, t_list *blist, t_list *ans_list,
 int					list_min(t_list *list);
 t_list				*move_bottom_list(t_list *alist, t_list *blist,
 						t_list *ans_list);
-void				ft_dfs(t_list *blist, t_list *alist, t_list *ans_list,
+t_list				*ft_dfs(t_list *blist, t_list *alist, t_list *ans_list,
 						t_list *block_list);
 
 t_list				*list_move(t_list *alist, t_list *blist, t_list *ans_list,

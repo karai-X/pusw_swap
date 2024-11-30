@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 22:12:04 by karai             #+#    #+#             */
-/*   Updated: 2024/11/30 10:22:39 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/30 11:30:48 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_list	*move_bottom_list(t_list *alist, t_list *blist, t_list *ans_list)
 	return (ans_list);
 }
 
-void	ft_dfs(t_list *alist, t_list *blist, t_list *ans_list,
+t_list	*ft_dfs(t_list *alist, t_list *blist, t_list *ans_list,
 		t_list *block_list)
 {
 	int	block_cnt;
@@ -39,8 +39,10 @@ void	ft_dfs(t_list *alist, t_list *blist, t_list *ans_list,
 	{
 		block_cnt = 0;
 		divide_list(alist, blist, ans_list, &block_cnt);
-		list_appendleft(block_list, block_cnt);
+		if (list_appendleft(block_list, block_cnt) == NULL)
+			return (NULL);
 	}
+	return (ans_list);
 }
 
 int	list_min_limit(t_list *list, int num)
