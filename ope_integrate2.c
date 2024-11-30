@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:34:45 by karai             #+#    #+#             */
-/*   Updated: 2024/11/29 00:30:37 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/30 09:58:23 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	integrate_sb_pa_ra_pa_ra_part(t_node *tmp_ptr)
 void	integrate_sb_pa_ra_pa_ra(t_list *list)
 {
 	t_node	*tmp_ptr;
-	int		i;
 
 	if (list_is_empty(list) == true || list->len <= 100)
 		return ;
@@ -87,7 +86,6 @@ void	integarate_pb_pb_rb_pa_part(t_node *tmp_ptr, int *cnt, t_list *ans_list)
 void	integarate_pb_pb_rb_pa(t_list *list)
 {
 	t_node	*tmp_ptr;
-	t_node	*delete_node;
 	int		cnt;
 
 	cnt = 0;

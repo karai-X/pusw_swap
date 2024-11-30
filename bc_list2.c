@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:37:52 by karai             #+#    #+#             */
-/*   Updated: 2024/11/28 21:40:06 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/30 09:58:35 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,6 @@ int	list_min(t_list *list)
 
 int	list_last(t_list *list)
 {
-	int		i;
-	t_node	*tmp_ptr;
-
 	if (list_is_empty(list))
 		return (-1);
 	else

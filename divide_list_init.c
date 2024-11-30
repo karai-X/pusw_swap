@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 20:19:39 by karai             #+#    #+#             */
-/*   Updated: 2024/11/29 20:51:47 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/30 10:00:04 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ t_list	*divide_list_init_part2(t_list *alist, t_list *blist, t_list *ans_list,
 			if (list_appendleft(blist, list_gd(alist, 0)) == NULL)
 				return (NULL);
 			list_remove_left(alist);
-			if (list_append(ans_list, PB + alist->idx)== NULL)
+			if (list_append(ans_list, PB + alist->idx) == NULL)
 				return (NULL);
 		}
 		else
 		{
 			list_rotate_left(alist);
-			if (list_append(ans_list, RA + alist->idx)==NULL)
+			if (list_append(ans_list, RA + alist->idx) == NULL)
 				return (NULL);
 		}
 	}
@@ -74,7 +74,8 @@ t_list	*divide_list_init(t_list *alist, t_list *blist, t_list *ans_list)
 	}
 	else
 	{
-		if (divide_list_init_part2(alist, blist, ans_list, sn)==NULL)
+		if (divide_list_init_part2(alist, blist, ans_list, sn) == NULL)
 			return (NULL);
 	}
+	return (ans_list);
 }
