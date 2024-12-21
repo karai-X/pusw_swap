@@ -6,38 +6,36 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:12:26 by karai             #+#    #+#             */
-/*   Updated: 2024/11/30 11:31:35 by karai            ###   ########.fr       */
+/*   Updated: 2024/12/19 22:40:02 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bc_list.h"
-#include "libft.h"
 #include "push_swap.h"
 
 void	print_ans_part(int num)
 {
 	if (num == SA)
-		printf("sa\n");
+		ft_printf("sa\n");
 	if (num == SB)
-		printf("sb\n");
+		ft_printf("sb\n");
 	if (num == SS)
-		printf("ss\n");
+		ft_printf("ss\n");
 	if (num == PB)
-		printf("pb\n");
+		ft_printf("pb\n");
 	if (num == PA)
-		printf("pa\n");
+		ft_printf("pa\n");
 	if (num == RA)
-		printf("ra\n");
+		ft_printf("ra\n");
 	if (num == RB)
-		printf("rb\n");
+		ft_printf("rb\n");
 	if (num == RR)
-		printf("rr\n");
+		ft_printf("rr\n");
 	if (num == RRA)
-		printf("rra\n");
+		ft_printf("rra\n");
 	if (num == RRB)
-		printf("rrb\n");
+		ft_printf("rrb\n");
 	if (num == RRR)
-		printf("rrr\n");
+		ft_printf("rrr\n");
 }
 
 void	print_ans(t_list *ans_list)
@@ -54,6 +52,15 @@ void	print_ans(t_list *ans_list)
 	}
 }
 
+void	list_free_all(t_list *alist, t_list *blist, t_list *ans_list,
+		t_list *block_list)
+{
+	list_free(alist);
+	list_free(blist);
+	list_free(ans_list);
+	list_free(block_list);
+}
+
 int	main(int argc, char *argv[])
 {
 	int		*array;
@@ -62,18 +69,23 @@ int	main(int argc, char *argv[])
 	t_list	ans_list[1];
 	t_list	block_list[1];
 
-	array = ft_comp_cord_main(argc, argv);
+	array = ft_comp_cord_main(&argc, argv);
 	if (array == NULL)
 		return (1);
-	list_initialize(alist, blist, ans_list);
+	list_initialize(alist, blist, ans_list, block_list);
 	if (list_initial_make(alist, array, argc) == NULL)
+	{
+		free(array);
 		return (1);
+	}
 	if (ft_solve(alist, blist, ans_list, block_list) == NULL)
 	{
+		list_free_all(alist, blist, ans_list, block_list);
 		free(array);
 		return (1);
 	}
 	ft_integrate(ans_list);
 	print_ans(ans_list);
-	// free
+	list_free_all(alist, blist, ans_list, block_list);
+	free(array);
 }

@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:44:51 by karai             #+#    #+#             */
-/*   Updated: 2024/11/30 09:57:08 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/30 15:46:50 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,27 @@
 #include "libft.h"
 #include "push_swap.h"
 
-void	integarate_pa_pa_ra_pb_part(t_node *tmp_ptr, int *cnt, t_list *ans_list)
+void	integarate_pa_pa_ra_pb_part(t_node **tmp_ptr, int *cnt,
+		t_list *ans_list)
 {
 	t_node	*delete_node;
 
-	if ((*cnt == 1 || *cnt == 2) && tmp_ptr->data == PA)
+	if ((*cnt == 1 || *cnt == 2) && (*tmp_ptr)->data == PA)
 		*cnt = 2;
-	else if (tmp_ptr->data == PA)
+	else if ((*tmp_ptr)->data == PA)
 		*cnt = 1;
-	else if (*cnt == 2 && tmp_ptr->data == RA)
+	else if (*cnt == 2 && (*tmp_ptr)->data == RA)
 		*cnt = 3;
-	else if (*cnt == 3 && tmp_ptr->data == PB)
+	else if (*cnt == 3 && (*tmp_ptr)->data == PB)
 	{
 		*cnt = 0;
-		tmp_ptr->prev->prev->prev->data = SB;
-		tmp_ptr->prev->prev->data = PA;
-		tmp_ptr->prev->data = RA;
-		tmp_ptr->prev->next = tmp_ptr->next;
-		tmp_ptr->next->prev = tmp_ptr->prev;
-		delete_node = tmp_ptr;
-		tmp_ptr = tmp_ptr->prev;
+		(*tmp_ptr)->prev->prev->prev->data = SB;
+		(*tmp_ptr)->prev->prev->data = PA;
+		(*tmp_ptr)->prev->data = RA;
+		(*tmp_ptr)->prev->next = (*tmp_ptr)->next;
+		(*tmp_ptr)->next->prev = (*tmp_ptr)->prev;
+		delete_node = (*tmp_ptr);
+		(*tmp_ptr) = (*tmp_ptr)->prev;
 		free(delete_node);
 		ans_list->len -= 1;
 	}
@@ -54,7 +55,7 @@ void	integarate_pa_pa_ra_pb(t_list *list)
 		tmp_ptr = list->head->next;
 		while (tmp_ptr != list->head)
 		{
-			integarate_pa_pa_ra_pb_part(tmp_ptr, &cnt, list);
+			integarate_pa_pa_ra_pb_part(&tmp_ptr, &cnt, list);
 			tmp_ptr = tmp_ptr->next;
 		}
 	}

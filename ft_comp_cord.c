@@ -3,63 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_comp_cord.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:21:57 by karai             #+#    #+#             */
-/*   Updated: 2024/11/28 21:55:38 by karai            ###   ########.fr       */
+/*   Updated: 2024/12/21 12:03:29 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bc_list.h"
-#include "libft.h"
 #include "push_swap.h"
-
-bool	ft_is_duplicate(int *array, int length)
-{
-	int	i;
-
-	i = 0;
-	while (i < length - 1)
-	{
-		if (array[i] == array[i + 1])
-		{
-			printf("Error\n");
-			return (true);
-		}
-		i += 1;
-	}
-	return (false);
-}
-
-void	ft_sort_upper(int *array, int length)
-{
-	int	i;
-	int	j;
-	int	temp;
-
-	i = 0;
-	while (i < length)
-	{
-		j = 0;
-		while (j < length - i - 1)
-		{
-			if (array[j] > array[j + 1])
-			{
-				temp = array[j];
-				array[j] = array[j + 1];
-				array[j + 1] = temp;
-			}
-			j += 1;
-		}
-		i += 1;
-	}
-}
 
 int	*ft_comp_cord(int *array, int length)
 {
 	int	*temp_array;
 	int	i;
-	int	j;
 
 	temp_array = (int *)malloc(sizeof(int) * length);
 	if (temp_array == NULL)
@@ -69,7 +25,20 @@ int	*ft_comp_cord(int *array, int length)
 		temp_array[i] = array[i];
 	ft_sort_upper(temp_array, length);
 	if (ft_is_duplicate(temp_array, length))
+	{
+		free(temp_array);
 		return (NULL);
+	}
+	ft_comp_cord_part(temp_array, array, length);
+	free(temp_array);
+	return (array);
+}
+
+void	ft_comp_cord_part(int *temp_array, int *array, int length)
+{
+	int	i;
+	int	j;
+
 	i = 0;
 	while (i < length)
 	{
@@ -79,28 +48,79 @@ int	*ft_comp_cord(int *array, int length)
 				break ;
 		array[i++] = j;
 	}
-	free(temp_array);
-	return (array);
 }
 
-int	*ft_comp_cord_main(int argc, char *argv[])
+int	*ft_comp_cord_main_part(int argc, int *array)
 {
-	int	i;
-	int	*array;
-
-	array = malloc(sizeof(int) * (argc - 1));
-	if (array == NULL)
-		return (NULL);
-	i = 1;
-	while (i < argc)
-	{
-		array[i - 1] = ft_atoi(argv[i]);
-		i += 1;
-	}
 	if (ft_comp_cord(array, argc - 1) == NULL)
 	{
+		write(2, "Error\n", 6);
 		free(array);
 		return (NULL);
 	}
+	if (already_sort(array, argc - 1) == true)
+	{
+		free(array);
+		exit(0);
+	}
 	return (array);
+}
+
+int	*ft_comp_cord_for_split(int *argc, char ***argv, int *split_flag,
+		int *array)
+{
+	if (*argc < 2)
+		return (print_error());
+	if (*argc == 2)
+	{
+		*split_flag = 1;
+		*argv = ft_split((*argv)[1], ' ');
+		if (*argv == NULL || (*argv)[0] == NULL)
+		{
+			free2dim(*argv);
+			return (print_error());
+		}
+		*argc = 1;
+		while ((*argv)[(*argc) - 1])
+			*argc += 1;
+	}
+	else
+		*argv = &(*argv)[1];
+	array = malloc(sizeof(int) * (*argc - 1));
+	if (array == NULL)
+	{
+		if (split_flag)
+			free2dim(*argv);
+		return (print_error());
+	}
+	return (array);
+}
+
+int	*ft_comp_cord_main(int *argc, char *argv[])
+{
+	int	i;
+	int	*array;
+	int	split_flag;
+
+	split_flag = 0;
+	array = NULL;
+	array = ft_comp_cord_for_split(argc, &argv, &split_flag, array);
+	if (array == NULL)
+		return (NULL);
+	i = 0;
+	while (i < *argc - 1)
+	{
+		if (ft_atoi_for_ps(argv[i], &(array[i])) == false)
+		{
+			if (split_flag)
+				free2dim(argv);
+			free(array);
+			write(2, "Error\n", 6);
+			return (NULL);
+		}
+		i += 1;
+	}
+	if (split_flag)
+		free2dim(argv);
+	return (ft_comp_cord_main_part(*argc, array));
 }

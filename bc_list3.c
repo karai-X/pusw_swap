@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bc_list.c                                          :+:      :+:    :+:   */
+/*   bc_list3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 20:03:34 by karai             #+#    #+#             */
-/*   Updated: 2024/11/28 21:42:16 by karai            ###   ########.fr       */
+/*   Created: 2024/11/30 16:12:43 by karai             #+#    #+#             */
+/*   Updated: 2024/11/30 16:13:18 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,18 @@ void	list_swap(t_list *list, int idx)
 	tmp_num = tmp_ptr->next->data;
 	tmp_ptr->next->data = tmp_ptr->data;
 	tmp_ptr->data = tmp_num;
+}
+
+void	list_free(t_list *list)
+{
+	while (list_is_empty(list) == false)
+	{
+		list_remove_left(list);
+	}
+}
+
+void	list_rotate_left(t_list *list)
+{
+	if (list_is_empty(list) == false)
+		list->head = list->head->next;
 }

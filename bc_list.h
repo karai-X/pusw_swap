@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:33:46 by karai             #+#    #+#             */
-/*   Updated: 2024/11/30 10:39:52 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/30 15:44:51 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int					list_gd(t_list *list, int idx);
 void				list_swap(t_list *list, int idx);
 int					list_last(t_list *list);
 void				list_remove_right(t_list *list);
+void				list_free(t_list *list);
 
 t_list				*list_rotate_right_ans(t_list *list, t_list *ans_list);
 t_list				*list_swap_ans(t_list *list, t_list *ans_list);
@@ -51,6 +52,20 @@ t_list				*sort_list_u3(t_list *list, t_list *ans_list);
 
 t_list				*divide_list(t_list *alist, t_list *blist, t_list *ans_list,
 						int *block_cnt);
+t_list				*divide_list_part1(t_list *alist, t_list *blist,
+						t_list *ans_list, int move_block_blen_sn[4]);
+t_list				*divide_list_part2(t_list *alist, t_list *blist,
+						t_list *ans_list);
+t_list				*divide_list_part3(t_list *blist, t_list *ans_list,
+						int *move_block_blen_sn);
+t_list				*divide_list_part4(t_list *alist, t_list *blist,
+						t_list *ans_list, int *move_block_blen_sn);
+t_list				*divide_list_part5(t_list *alist, t_list *blist,
+						t_list *ans_list, int move_block_blen_sn[4]);
+t_list				*divide_list_part6(t_list *alist, t_list *blist,
+						t_list *ans_list);
+t_list				*divide_list_part7(t_list *alist, t_list *blist,
+						t_list *ans_list, int move_block_blen_sn[4]);
 
 int					list_min(t_list *list);
 t_list				*move_bottom_list(t_list *alist, t_list *blist,
@@ -100,25 +115,29 @@ t_list				*sort_list_u3_to_other_part1(t_list *alist, t_list *blist,
 
 int					list_min_limit(t_list *list, int num);
 void				list_initialize(t_list *alist, t_list *blist,
-						t_list *ans_list);
+						t_list *ans_list, t_list *block_list);
 t_list				*list_initial_make(t_list *alist, int *array, int argc);
 
 void				integrate_pb_pa_part(t_list *list, t_node *tmp_ptr);
 void				integrate_pb_pa(t_list *list);
 void				integrate_rb_ra(t_list *list);
 void				ft_integrate(t_list *ans_list);
-void				integarate_pb_ra_pa_part(t_node *tmp_ptr, int *cnt);
+void				integarate_pb_ra_pa_part(t_node **tmp_ptr, int *cnt);
 void				integarate_pb_ra_pa(t_list *list);
 void				integrate_sb_pa_ra_pa_ra_part(t_node *tmp_ptr);
 void				integrate_sb_pa_ra_pa_ra(t_list *list);
-void				integarate_pb_pb_rb_pa_part(t_node *tmp_ptr, int *cnt,
+void				integarate_pb_pb_rb_pa_part(t_node **tmp_ptr, int *cnt,
 						t_list *ans_list);
 void				integarate_pb_pb_rb_pa(t_list *list);
-void				integarate_pa_pa_ra_pb_part(t_node *tmp_ptr, int *cnt,
+void				integarate_pa_pa_ra_pb_part(t_node **tmp_ptr, int *cnt,
 						t_list *ans_list);
 void				integarate_pa_pa_ra_pb(t_list *list);
 
 t_list				*ft_solve(t_list *alist, t_list *blist, t_list *ans_list,
 						t_list *block_list);
+t_list				*ft_solve_part1(t_list *alist, t_list *blist,
+						t_list *ans_list, int len);
+t_list				*ft_solve_part2(t_list *alist, t_list *blist,
+						t_list *ans_list, t_list *block_list);
 
 #endif

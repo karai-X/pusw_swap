@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 21:00:01 by karai             #+#    #+#             */
-/*   Updated: 2024/11/30 09:56:55 by karai            ###   ########.fr       */
+/*   Updated: 2024/11/30 15:37:56 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ void	ft_integrate(t_list *ans_list)
 	}
 }
 
-void	integarate_pb_ra_pa_part(t_node *tmp_ptr, int *cnt)
+void	integarate_pb_ra_pa_part(t_node **tmp_ptr, int *cnt)
 {
 	t_node	*delete_node;
 
-	tmp_ptr->prev->prev->data = SA;
-	tmp_ptr->prev->data = RA;
-	tmp_ptr->prev->next = tmp_ptr->next;
-	tmp_ptr->next->prev = tmp_ptr->prev;
-	delete_node = tmp_ptr;
-	tmp_ptr = tmp_ptr->prev;
+	(*tmp_ptr)->prev->prev->data = SA;
+	(*tmp_ptr)->prev->data = RA;
+	(*tmp_ptr)->prev->next = (*tmp_ptr)->next;
+	(*tmp_ptr)->next->prev = (*tmp_ptr)->prev;
+	delete_node = (*tmp_ptr);
+	(*tmp_ptr) = (*tmp_ptr)->prev;
 	free(delete_node);
 	*cnt = 0;
 }
@@ -67,7 +67,7 @@ void	integarate_pb_ra_pa(t_list *list)
 				cnt = 2;
 			else if (cnt == 2 && tmp_ptr->data == PA)
 			{
-				integarate_pb_ra_pa_part(tmp_ptr, &cnt);
+				integarate_pb_ra_pa_part(&tmp_ptr, &cnt);
 				list->len -= 1;
 			}
 			else
@@ -80,24 +80,22 @@ void	integarate_pb_ra_pa(t_list *list)
 void	integrate_pb_pa_part(t_list *list, t_node *tmp_ptr)
 {
 	t_node	*delete_node1;
-	t_node	*delete_node2;
 
 	delete_node1 = tmp_ptr->prev;
-	delete_node2 = tmp_ptr;
 	tmp_ptr->prev->prev->next = tmp_ptr->next;
 	tmp_ptr->next->prev = tmp_ptr->prev->prev;
 	if (tmp_ptr->prev == list->head)
 		list->head = tmp_ptr->next;
 	free(delete_node1);
-	free(delete_node2);
 	list->len -= 2;
 }
 
 void	integrate_pb_pa(t_list *list)
 {
 	t_node	*tmp_ptr;
+	t_node	*delete_node2;
 
-	if (list_is_empty(list) == true || list->len <= 3)
+	if (list_is_empty(list) == true || list->len <= 10)
 		return ;
 	else
 	{
@@ -108,6 +106,9 @@ void	integrate_pb_pa(t_list *list)
 				|| (tmp_ptr->prev->data == PA && tmp_ptr->data == PB))
 			{
 				integrate_pb_pa_part(list, tmp_ptr);
+				delete_node2 = tmp_ptr;
+				tmp_ptr = tmp_ptr->next;
+				free(delete_node2);
 			}
 			tmp_ptr = tmp_ptr->next;
 		}
