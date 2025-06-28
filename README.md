@@ -26,7 +26,7 @@ git clone https://github.com/karai-X/pusw_swap.git
 make
 ```
 ```
-./push_swap 5 4 1 3 9`
+./push_swap 5 4 1 3 9
 ```
 ## 入力
 ./push_swap (正の整数)  
